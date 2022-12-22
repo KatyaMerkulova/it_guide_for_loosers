@@ -1,0 +1,41 @@
+1. to reduse the number of iterations in the "for" you can divide the input value by the interval between numbers 
+for example, take every third:
+nn = 10
+for n in range(1, nn//3 + 1):
+  ...
+
+for example, take every second:
+for n in range(1, nn//2 + 1):
+  ...
+  
+2. the range() function has three input arguments start - the number from which cycle starts, stop and step
+range(start, stop, step)
+
+3. additional features of the print() function:
+print(a) = print(a,end='\n') by default
+print(a,end=' ')
+
+3. float numbers
+4.5 = 45 * 10^-1 = 45e-1 where 45 - mantissa and -1 is the exponent
+computer accuracy = E = 1e-15
+numbers greater than or less E the computer doesnt understand((
+
+4. work with math functions
+import math
+.
+.
+.
+math.e, math.sqrt, ...
+
+5. list[]
+l = []
+l.append(x) - add the number to the end of the list
+
+example:
+list = []
+for _ in range(5):
+    num = int(input())
+    list.append(num)
+for i in list:
+    print(i, ' ', i**2)
+
