@@ -1,0 +1,79 @@
+list[]
+
+l = []
+1. Add - l.append(x) - add the number to the end of the list  
+
+2. Remove:
+2.1 l.remove(x) - remove the first occurrence of a value from the list(x is a element)
+2.2 l.pop(x) - remove element by its index(x is an index) 
+2.3 l.clear() - remove all elements from the list
+
+3. Merge lists:
+l = ['a', 'b', 'c']
+m = ['d', 'e', 'f']
+
+m.extend(l) # m = ['a', 'b', 'c', 'd', 'e', 'f']
+
+4.Number of occurrences of an element:
+l.count(x) x is the element
+
+example:
+
+def show_films(films):
+    for film in range(len(films)):
+        print(films[film])
+        
+def append_film(films):
+    new_film = input('give me a new film')
+    films.append(new_film)
+
+def remove_film(films, film):
+    films.remove(film)
+   
+films = []
+n_films = []
+for i in range(5):
+    append_film(films)
+    append_film(n_films)
+    
+while True:
+    do = int(input("""что нужно сделать?
+               1 - показать список фильмов
+               2 - добавить фильм
+               3 - удалить фильм
+               4 - exit"""))
+    if do == 1:
+             show_films(films)
+    elif do == 2:
+             append_film(films)
+             print("вот обновленный список")
+             show_films(films)
+    elif do == 3:
+             show_films(films)
+             film = input("введите название фильма, который нужно удалить")
+             remove_film(films, film)
+    elif do == 4:
+             break
+    else:
+             print('error. try again')
+print('see you later')
+
+5. Remove duplicate elements
+
+5.1 Make a temporary list
+test = []
+for x in n_films:
+    if x not in test:
+        test.append(x)
+test
+
+5.2 Set() function
+n_films = list(set(n_films))
+n_films
+
+5.3 Count() function
+for x in n_films: 
+  if n_films.count(x) > 1: 
+      n_films.remove(x)
+
+6. m = list(range(1,3)) #[1,2]
