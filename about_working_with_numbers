@@ -27,15 +27,3 @@ import math
 .
 math.e, math.sqrt, ...
 
-5. list[]
-l = []
-l.append(x) - add the number to the end of the list
-
-example:
-list = []
-for _ in range(5):
-    num = int(input())
-    list.append(num)
-for i in list:
-    print(i, ' ', i**2)
-
