@@ -1,0 +1,99 @@
+1. .format() - {}
+
+example:
+
+user_name = input()
+file_name = input()
+
+path = 'C:/{user}/docs/folder/{new_file}.txt'.format(
+    user = user_name, 
+    new_file = file_name
+)
+
+print(path)
+
+user_name = input()
+file_name = input()
+
+path = 'C:/{0}/docs/folder/{1}.txt'.format(
+    user_name, 
+    file_name
+)
+
+print(path)
+
+2. f-strings
+user_name = input()
+file_name = input()
+
+path = f'C:/{user_name}/docs/folder/{file_name}.txt'.format(
+    user = user_name, 
+    new_file = file_name
+)
+
+print(path)
+
+3. split - ''
+example:
+word = 'i hate computer'
+print(word.split())
+
+4. join - faster than concatination
+example:
+word = 'i hate computer'
+word = word.split()
+
+word = input()
+word = word.split()
+print(', '.join(word))
+
+word = input()
+word = word.split(',')
+print(' + '.join(word))
+
+
+print('---'.join(word))
+
+5. .endswith()
+example:
+user_name = input()
+file_name = input()
+
+path = 'C:/{user}/docs/folder/{new_file}.txt'.format(
+    user = user_name, 
+    new_file = file_name
+)
+if path.endswith('.txt'):
+    print(path)
+else:
+    print('error')
+    
+6. .startwith()
+example:
+user_name = input()
+file_name = input()
+
+path = 'C:/{user}/docs/folder/{new_file}.txt'.format(
+    user = user_name, 
+    new_file = file_name
+)
+if path.startswith('C:'):
+    print(path)
+else:
+    print('error')
+    
+7. .lower()
+
+s = 'AAA'
+print(s.lower())
+
+8. .upper()
+
+s = 'aaa'
+print(s.upper())
+
+9. String formatting
+
+prices = 1000000000
+print('prices your lamborgini {:,d}'.format(prices))
+print('prices your lamborgini {:.2f}'.format(prices))
