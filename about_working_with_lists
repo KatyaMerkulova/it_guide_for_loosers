@@ -160,4 +160,12 @@ word = list(input("word "))
 frst = word[:len(word)//2]
 scnd = word[len(word)//2:]
 
-print(frst[::-1] + scnd[::-1])                 
+print(frst[::-1] + scnd[::-1])    
+
+ms = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+s = [x for number in range(3) for x in ms[number]]
+print(s)
+
+ms = [[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]]
+s = [num for number in ms for x in number for num in x]
+print(s)
