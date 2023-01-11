@@ -1,0 +1,108 @@
+1. Create dict ({}, ':', ',')
+dictt = {
+  'A' : 32,
+  'B' : 45,
+  'C' : 56 
+}
+print(dictt['A']) # 32
+
+example:
+
+iq_dict = {
+  'Katya' : 30,
+  'Vanya' : 31,
+  'Egor'  : 32
+}
+
+name = input('whose IQ do you want to know? Give me a name')
+
+if name in iq_dict:
+    print(iq_dict[name])
+else:
+    print('no results found for {0}'.format(name))
+    
+2. D = dict{} - create a dict
+
+3. Add new element
+iq_dict['Greg'] = 1000000000000000
+
+example:
+
+student_str = input('''add inf about student with " "
+                    name, surname, university, grades
+                    ''')
+
+student_info = student_str.split()
+
+student = dict()
+student['name'] = student_info[0]
+student['surname'] = student_info[1]
+student['university'] = student_info[2]
+student['grades'] = []
+for i in student_info[4:]:
+    student['grades'].append(int(i))
+    
+for i_info in student:
+    print(i_info, ' - ', student[i_info])
+    
+4. Dict methods
+
+def hist(string):
+    sym_dict = dict()
+    for sym in string:
+        if sym in sym_dict:
+            sym_dict[sym] += 1
+        else:
+            sym_dict[sym] = 1
+    return sym_dict
+
+text = input('enter the text ').lower()
+hist = hist(text)
+
+# for sym in histogram:
+#     print(sym, ' - ', histogram[sym])
+
+4.1 .keys() - returns a list of all keys  
+4.2 sorted() - sort ascending
+
+for sym in sorted(hist.keys()):
+    print(sym, ' - ', hist[sym])
+
+4.3 .values() - returns a list of all values
+4.4 max() - returns max value
+
+print('Max', max(hist.values()))
+
+4.5 .pop(name, key_errors): key_errors - returned if the key isn't in the dist - remove the key
+del_hist = [' ', '(', ')', ':', '.', ','] # what needs to be removed
+for h in del_hist:
+    hist.pop(h)
+    
+for sym in sorted(hist.keys()):
+    print(sym, ' - ', hist[sym])
+    
+4.6 .update() - update dict
+example:
+
+d1 = {
+  'Katya' : 30,
+  'Vanya' : 31,
+  'Egor'  : 10000
+}
+
+d2 = {
+  'Katt' : 67,
+  'Vann' : 45,
+  'Egorr': 10
+}
+
+d1.update(d2)
+print(d1)
+
+4.7 .get() - get value by key
+d2 = {
+  'Katt' : 67,
+  'Vann' : 45,
+  'Egorr': 10
+}
+print(d2.get('Katt'))
