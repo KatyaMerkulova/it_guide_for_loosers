@@ -100,5 +100,5 @@ print('prices your lamborgini {:.2f}'.format(prices))
 
 10. .title()
 
-name = "vanya rediska"
+name = "vanya REDISKA"
 print(name.title())
