@@ -106,3 +106,5 @@ d2 = {
   'Egorr': 10
 }
 print(d2.get('Katt'))
+
+
