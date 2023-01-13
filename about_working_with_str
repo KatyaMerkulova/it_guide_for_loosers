@@ -97,3 +97,8 @@ print(s.upper())
 prices = 1000000000
 print('prices your lamborgini {:,d}'.format(prices))
 print('prices your lamborgini {:.2f}'.format(prices))
+
+10. .title()
+
+name = "vanya rediska"
+print(name.title())
