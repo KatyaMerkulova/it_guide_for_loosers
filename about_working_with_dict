@@ -107,4 +107,83 @@ d2 = {
 }
 print(d2.get('Katt'))
 
+example1:
+data = dict()
+data['server'] = {
+    'local': '127.0.0.1',
+    'port': '10'
+}
 
+data['configuration'] = {
+    'ssh': '127.0.0.1',
+    'passsword': '12345'
+}
+
+for d in data:
+    for id in data[d]:
+        print(id, ' ', data[d][id])
+        
+        
+print(data['server']['port'])        
+print(data['configuration']['ssh'])
+data['configuration']['ssh'] = '124'
+print(data['configuration']['ssh'])
+
+example2:
+#1 goog method like a skillbox teacher 
+teams = {
+    1 : {'name':'NNN', 'age': 20},
+    2 : {'name':'nnn', 'age': 28 },
+    3 : {'name':'mmm', 'age': 29 },
+    4 : {'name':'MMM', 'age': 21 }
+}
+for team in teams.values():
+    if team['name'] == 'NNN' and team['age'] == 20:
+        print(team['name'])
+    else:
+        print('little')
+#2 not goog but i did so
+teams = {
+    1 : {'name':'NNN', 'age': 20},
+    2 : {'name':'nnn', 'age': 28 },
+    3 : {'name':'mmm', 'age': 29 },
+    4 : {'name':'MMM', 'age': 21 }
+}
+
+for team in teams:
+    if teams[team]['name'] == 'nNN' and teams[team]['age'] == 20:
+        print(teams[team]['name'])
+    else:
+        print('little')
+        
+4.8 set() function - create a set {}
+example: unique numbers
+import random #without set()
+numbers_list = [random.randint(1,5) for _ in range(10)]
+numb = []
+for num in numbers_list:
+    if num not in numb:
+        numb.append(num)
+print(numbers_list)
+print(numb)
+
+#with set()
+unic = set(numbers_list)
+print(unic)
+
+    4.8.1 intersection sets{}
+    set1 = {1, 2, 3, 4, 5, 6, 7, 8}
+    set2 = {12, 3, 4, 15, 16, 17, 18}
+    print(set1.intersection(set2))
+    #or
+    print(set1 & set2)
+    
+    4.8.2.union sets {}
+    print(set1.union(set2))
+    #or
+    print(set1 | set2)
+    
+    4.8.3 set1 - set2
+    print(set1.difference(set2))
+    #or
+    print(set1 - set2)
