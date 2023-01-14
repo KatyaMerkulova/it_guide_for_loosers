@@ -187,3 +187,14 @@ print(unic)
     print(set1.difference(set2))
     #or
     print(set1 - set2)
+    
+4.9 Dict generate
+list = [
+    {'id': 10, 'name':'misha'},
+    {'id': 11, 'name':'masha'},
+    {'id': 12, 'name':'sasha'},
+    {'id': 10, 'name':'misha'},
+    {'id': 12, 'name':'sasha'}
+]
+unique_dict = {_['id'] : _ for _ in list}
+print(unique_dict.values())
