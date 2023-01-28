@@ -1,0 +1,67 @@
+Создать таблицу:
+create database first_table(
+id int not null primary key,
+first_name not null varchar(50),
+last_name not null varchar(50),
+date_of_birth not null date);
+
+\d first_table - посмотреть атрибуты
+
+Заполнить таблицу:
+insert into(first_name,
+last_name,
+date_of_birth)
+values(
+'Katya',
+'Katuuusha',
+'1999-09-09');
+
+Посмотреть содержимое таблицы:
+select * from first_table;
+Посмотреть количество записей в таблице:
+select from first_table;
+Посмотреть отдельные значения:
+select first_name from  first_table;
+select first_name, last_name  from  first_table;
+Отсортировать - автоматически по возрастанию:
+select * first_table order by date_of_birth;
+По убыванию:
+select * first_table order by date_of_birth desc;
+Посмотреть значения без повторений:
+select distinct date_of_birth from first_table order by date_of_birth;
+Добавить столбец в уже созданную таблицу:
+alter table first_table
+add gender varchar(50);
+Вывести значения по заданным условиям:
+select * from first_table where date_of_birth = '2002-02-22';
+Логические оперции аналогично другим языкам
+Если нужно посмотреть не все записи, а часть:
+select * from first_table limit 3;
+Если нужно посмотреть записи с какой-то конкретной позиции:
+select * from first_table offset 3 limit 10;
+select * from first_table offset 3 fetch first 5 row only;
+Выбрать значения по неусольким критериям, чтобы не прописывать кучу "или":
+(in)
+select * from first_table where first_name in ('Erog', 'Katya');
+Вывести значения из промежутка(например между какими-то датами):
+select * from first_table where date_of_birth between '1999-01-01' and '2022-12-21';
+Вывести значения, которые похожи на:
+select * from first_table where first_name like '%n';
+% - любое количество символов перед n
+select * from first_table where first_name like 'E%';
+Чтобы искать по заглавным и строчным вместе:
+select * from first_table where first_name ilike 'e%';
+Посчитать количество записей с одинаковыми именами:
+select first_name, count(*) from first_table group by first_name;
+Вывести количество записей с одинаковыми именами, если их больше 1:
+select first_name, count(*) from first_table group by first_name having count(*)>1;
+Изменить названия атрибутов:
+select id, first_name as name, last_name as surname, date_of_birth from first_table;
+Вывести что-то вместо пустых записей:
+select coalesce(gender, 'non') from first_table;
+
+
+
+
+
+
