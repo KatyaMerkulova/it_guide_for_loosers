@@ -1,20 +1,35 @@
+sudo -i -u postgres
+psql
+
+\c step1;
+Посмотреть спсок таблиц в бд:
+SELECT table_name FROM information_schema.tables
+WHERE table_schema NOT IN ('information_schema','pg_catalog');
+or \d
+
+crate dababase step1;
 Создать таблицу:
-create database first_table(
+create table first_table(
 id int not null primary key,
-first_name not null varchar(50),
-last_name not null varchar(50),
-date_of_birth not null date);
+first_name varchar(50) not null,
+last_name varchar(50) not null,
+gender varchar(10) not null,
+date_of_birth date not null,
+email varchar(50));
 
 \d first_table - посмотреть атрибуты
 
 Заполнить таблицу:
-insert into(first_name,
+insert into first_table(
+first_name,
 last_name,
 date_of_birth)
 values(
 'Katya',
-'Katuuusha',
-'1999-09-09');
+'Merkulova',
+'w',
+'1999-09-09',
+'a@mail.com');
 
 Посмотреть содержимое таблицы:
 select * from first_table;
@@ -59,6 +74,121 @@ select first_name, count(*) from first_table group by first_name having count(*)
 select id, first_name as name, last_name as surname, date_of_birth from first_table;
 Вывести что-то вместо пустых записей:
 select coalesce(gender, 'non') from first_table;
+
+create table vacation(
+id int not null primary key,
+destination_country varchar(50),
+price int not null);
+
+max - select max(price) from vacation;
+min - select min(price) from vacation;
+mean price - select avg(price) from vacation;
+round - select round(avg(price), n) from vacation; n - количество знаков после запятой
+Выбрать самые дорогие/дешевые из одной и той же страны:
+select destination_country, min(price) from vacation group by destination_country;
+sum - select sum(price) from vacation;
+
+date|time - select now();
+select now()::date;
+select now()::time;
+select now() + interval '100 year'; select now() - interval '100 year';
+select now() + interval '10 month'; select now() + interval '100 day';
+select extract(day from now()); select extract(month from now()); select extract(year from now());
+day for week - select extract(dow from now()); # воскресенье 0 день
+Возраст на текущий момент:
+select first_name,last_name, date_of_birth, age(now(), date_of_birth) as age from first_table;
+
+primary keys:
+Изменить таблицу, удалить первичный ключ:
+alter table first_table drop constraint first_table_pkey;
+Добавить первичный ключ:
+alter table first_table add primary key(id);
+Удалить какую-то запись:
+delete from first_table where id=1;
+Создать ограничение:
+alter table first_table add constraint unique_first_name unique(first_name);
+alter table first_table add constraint gender_constraint check (gender = 'm' od gender = 'w');
+
+Обновить какие-то данные:
+update vacation set price = 15000 where price = 13000;
+
+Внешние ключи - отношения между таблицами:
+переименовать столбец таблицы - alter table first_table rename column bibycle_id to bicycle_id;
+переименовать таблицу - ALTER TABLE first_table RENAME TO first;
+создать внешний ключ в таблице - alter table first_table add bibycle_id bigint references bicycle(id);
+сделать его уникальным (связь один к одному) - alter table first_table add unique(bicycle_id);
+создать связь - update first set bicycle_id = 1 where id = 4;
+
+Объединение таблиц - join:
+inner join - объединение таблиц с одинаковыми колонками
+select * from first
+step1-# join bicycle on first.bicycle_id = bicycle.id;
+ 4 | None       | Non       | 1992-12-02    |        |          1 |  1 | indi | bike1 | 1000.00
+ 1 | Katya      | Merkulova | 2002-05-21    | woman  |          2 |  2 | bts  | bike2 | 1500.00
+ 6 | Egor       | Egor      | 1995-05-21    |        |          3 |  3 | klt  | bike3 | 1045.00
+
+select first.first_name, bicycle.make, bicycle.type, bicycle.price
+step1-# from first
+step1-# join bicycle on first.bicycle_id = bicycle.id;
+
+ first_name | make | type  |  price  
+------------+------+-------+---------
+ None       | indi | bike1 | 1000.00
+ Katya      | bts  | bike2 | 1500.00
+ Egor       | klt  | bike3 | 1045.00
+ 
+Объединение с условием - left join - всё из левой и заполненные из правой:
+select * from first
+left join bicycle on bicycle.id = first.bicycle_id where bicycle_id is not null;
+ id | first_name | last_name | date_of_birth | gender | bicycle_id | id | make | type  |  price  
+----+------------+-----------+---------------+--------+------------+----+------+-------+---------
+  4 | None       | Non       | 1992-12-02    |        |          1 |  1 | indi | bike1 | 1000.00
+  1 | Katya      | Merkulova | 2002-05-21    | woman  |          2 |  2 | bts  | bike2 | 1500.00
+  6 | Egor       | Egor      | 1995-05-21    |        |          3 |  3 | klt  | bike3 | 1045.00
+(3 строки)
+Кому не выдали велик:
+select * from first
+left join bicycle on bicycle.id = first.bicycle_id where bicycle_id is null;
+ id | first_name | last_name | date_of_birth | gender | bicycle_id | id | make | type | price 
+----+------------+-----------+---------------+--------+------------+----+------+------+-------
+  3 | Ishak      | Gogog      | 2002-02-22    |        |            |    |      |      |      
+  5 | Jan        | Balman     | 1998-04-13    |        |            |    |      |      |      
+(2 строки)
+
+right join - всё из правой и заполненные из левой:
+select * from first
+right join bicycle on bicycle.id = first.bicycle_id;
+
+ id | first_name | last_name | date_of_birth | gender | bicycle_id | id | make | type  |  price  
+----+------------+-----------+---------------+--------+------------+----+------+-------+---------
+  4 | Ekin       | Koch      | 1992-12-02    |        |          1 |  1 | indi | bike1 | 1000.00
+  1 | Katya      | Merkulova | 2002-05-21    | woman  |          2 |  2 | bts  | bike2 | 1500.00
+  6 | Cetin      | Atal      | 1995-05-21    |        |          3 |  3 | klt  | bike3 | 1045.00
+(3 строки)
+
+
+объединить всё:
+select * from first
+full outer join bicycle on bicycle.id = first.bicycle_id;
+ id | first_name | last_name | date_of_birth | gender | bicycle_id | id | make | type  |  price  
+----+------------+-----------+---------------+--------+------------+----+------+-------+---------
+  4 | Ekin       | Koch      | 1992-12-02    |        |          1 |  1 | indi | bike1 | 1000.00
+  1 | Katya      | Merkulova | 2002-05-21    | woman  |          2 |  2 | bts  | bike2 | 1500.00
+  6 | Cetin      | Atal      | 1995-05-21    |        |          3 |  3 | klt  | bike3 | 1045.00
+  5 | Jan        | Kohan     | 1998-04-13    |        |            |    |      |       |        
+  3 | Ilahn      | Gogog     | 2002-02-22    |        |            |    |      |       |        
+(5 строк)
+
+Экспортировать таблицу из sql в csv:
+\copy (select * from left join bicycle on bicycle.id = first.bicycle_id where bicycle_id is not null) to '/home/kate/table' delimiter ',' csv header;
+
+
+
+
+
+
+
+
 
 
 
